@@ -5,8 +5,8 @@
 
 void displayAvailableCurrencies() {
     std::cout << "+-----------------------------------------------+\n";
-    std::cout << "¦  Option  ¦    Currency        ¦ Exchange Rate (to INR) ¦\n";
-    std::cout << "¦--------------------+--------------------------¦\n";
+    std::cout << "Â¦  Option  Â¦    Currency        Â¦ Exchange Rate (to INR) Â¦\n";
+    std::cout << "Â¦--------------------+--------------------------Â¦\n";
 
     std::vector<std::pair<std::string, double>> exchangeRates = {
         {"INR", 1.0},
@@ -22,10 +22,10 @@ void displayAvailableCurrencies() {
     };
 
     for (size_t i = 0; i < exchangeRates.size(); ++i) {
-        std::cout << "¦   " << std::setw(4) << i + 1
-                  << "   ¦ " << std::setw(18) << std::left << exchangeRates[i].first
-                  << " ¦ " << std::setw(20) << std::right << exchangeRates[i].second
-                  << " ¦\n";
+        std::cout << "Â¦   " << std::setw(4) << i + 1
+                  << "   Â¦ " << std::setw(18) << std::left << exchangeRates[i].first
+                  << " Â¦ " << std::setw(20) << std::right << exchangeRates[i].second
+                  << " Â¦\n";
     }
 
     std::cout << "+-----------------------------------------------+\n";
