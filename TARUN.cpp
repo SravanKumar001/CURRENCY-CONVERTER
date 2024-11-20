@@ -1,0 +1,92 @@
+#include <iostream>
+#include <iomanip>
+#include <vector>
+#include <string>
+
+void displayAvailableCurrencies() {
+    std::cout << "+-----------------------------------------------+\n";
+    std::cout << "¦  Option  ¦    Currency        ¦ Exchange Rate (to INR) ¦\n";
+    std::cout << "¦--------------------+--------------------------¦\n";
+
+    std::vector<std::pair<std::string, double>> exchangeRates = {
+        {"INR", 1.0},
+        {"USD", 0.0134},
+        {"EUR", 0.0114},
+        {"GBP", 0.0101},
+        {"JPY", 1.48},
+        {"CAD", 0.0168},
+        {"AUD", 0.0188},
+        {"CHF", 0.0123},
+        {"CNY", 0.085},
+        {"NZD", 0.0201}
+    };
+
+    for (size_t i = 0; i < exchangeRates.size(); ++i) {
+        std::cout << "¦   " << std::setw(4) << i + 1
+                  << "   ¦ " << std::setw(18) << std::left << exchangeRates[i].first
+                  << " ¦ " << std::setw(20) << std::right << exchangeRates[i].second
+                  << " ¦\n";
+    }
+
+    std::cout << "+-----------------------------------------------+\n";
+}
+
+double getConversionRate(const std::string& sourceCurrency, const std::string& targetCurrency, const std::vector<std::pair<std::string, double>>& rates) {
+    double sourceRate = 1.0, targetRate = 1.0;
+
+    for (const auto& rate : rates) {
+        if (rate.first == sourceCurrency) sourceRate = rate.second;
+        if (rate.first == targetCurrency) targetRate = rate.second;
+    }
+
+    return targetRate / sourceRate;
+}
+
+int main() {
+    std::vector<std::pair<std::string, double>> exchangeRates = {
+        {"INR", 1.0},
+        {"USD", 0.0134},
+        {"EUR", 0.0114},
+        {"GBP", 0.0101},
+        {"JPY", 1.48},
+        {"CAD", 0.0168},
+        {"AUD", 0.0188},
+        {"CHF", 0.0123},
+        {"CNY", 0.085},
+        {"NZD", 0.0201}
+    };
+
+    std::cout << "Available Currencies and Their Exchange Rates:\n";
+    displayAvailableCurrencies();
+
+    int sourceIndex = 0, targetIndex = 0;
+    double amount = 0.0;
+
+    std::cout << "\nChoose the source currency (Enter option number): ";
+    std::cin >> sourceIndex;
+
+    std::cout << "Choose the target currency (Enter option number): ";
+    std::cin >> targetIndex;
+
+    std::cout << "Enter the amount to convert from " 
+              << exchangeRates[sourceIndex - 1].first << " to " 
+              << exchangeRates[targetIndex - 1].first << ": ";
+    std::cin >> amount;
+
+    if (sourceIndex < 1 || sourceIndex > exchangeRates.size() || targetIndex < 1 || targetIndex > exchangeRates.size()) {
+        std::cerr << "Invalid currency option chosen. Please run the program again.\n";
+        return 1;
+    }
+
+    std::string sourceCurrency = exchangeRates[sourceIndex - 1].first;
+    std::string targetCurrency = exchangeRates[targetIndex - 1].first;
+    double conversionRate = getConversionRate(sourceCurrency, targetCurrency, exchangeRates);
+    double convertedAmount = amount * conversionRate;
+
+    std::cout << "\nConversion Result:\n";
+    std::cout << "------------------\n";
+    std::cout << amount << " " << sourceCurrency << " is equal to " 
+              << convertedAmount << " " << targetCurrency << ".\n";
+
+    return 0;
+}
